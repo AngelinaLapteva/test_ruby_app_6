@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   # root 'application#hello'
 
   root 'pages#home'
+
+  # this translated to GET request to 'about; page
+  get 'about', to: 'pages#about'
 end
