@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
 
   # only: [:show] we describe only routes we need, because by default it will create things like post, delete and etc
-  resources :articles_v2s, only: [:show]
+  # to see all possible routes we have in the app "rails routes --expanded"
+  resources :articles_v2s, only: [:show, :index]
+
 end

@@ -7,4 +7,9 @@ class ArticlesV2sController < ApplicationController
     # byebug is debugger; wrute your variable in terminal where your rails is runnning, ex: params[:id] will return you current called id
     @article = ArticlesV2s.find(params[:id])
   end
+
+  # create an index.html.erb in your articles_v2s folder, in order to see data from function
+  def index
+    @articles = ArticlesV2s.all
+  end
 end
