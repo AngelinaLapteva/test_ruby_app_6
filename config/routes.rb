@@ -8,4 +8,7 @@ Rails.application.routes.draw do
 
   # this translated to GET request to 'about; page
   get 'about', to: 'pages#about'
+
+  # only: [:show] we describe only routes we need, because by default it will create things like post, delete and etc
+  resources :articles_v2s, only: [:show]
 end
