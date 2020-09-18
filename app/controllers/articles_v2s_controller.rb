@@ -12,4 +12,45 @@ class ArticlesV2sController < ApplicationController
   def index
     @articles = ArticlesV2s.all
   end
+
+  def new
+    @article = ArticlesV2s.new
+  end
+
+  def edit
+    # we need to instainitiate @article because we use it in our edit.html.erb params is reserved word and comes from url we reuqest
+    @article = ArticlesV2s.find(params[:id])
+  end
+
+  # should be name of the table in params
+  def create
+    # render will actually render plain json of what was created as text into our page 
+    # render plain: params[:articles_v2s]
+
+    # require means =< require top level key of created article and permit to save its data
+    @article = ArticlesV2s.new(params.require(:articles_v2s).permit(:title, :description))
+   
+    # render plain: @article
+    # to show more details
+    # render plain: @article.inspect 
+
+    # article.save will return true if it was sucessfully saved into DB
+    if @article.save
+      flash[:notice] = "Article was created sucessfully"
+    # after saving we want to show what was saved (we add _path to our model/table name) or just our created @article:
+      redirect_to @article
+    else
+      render 'new'
+    end
+  end
+  
+  def update
+    @article = ArticlesV2s.find(params[:id])
+    if @article.update(params.require(:articles_v2s).permit(:title, :description))
+      flash[:notice] = "Article was updated successfully"
+      redirect_to @article
+    else
+      render 'edit'
+    end
+  end
 end

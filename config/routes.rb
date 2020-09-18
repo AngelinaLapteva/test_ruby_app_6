@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :articles
+  # resources :articles
   # here it means we are calling file application_controller.rb but all we need is to write word application and the rest will be considered 
   # in order to specify the method you planning to use, type it after filename using #
   # root 'application#hello'
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   # only: [:show] we describe only routes we need, because by default it will create things like post, delete and etc
   # to see all possible routes we have in the app "rails routes --expanded"
-  resources :articles_v2s, only: [:show, :index]
+  # show, index, new, create a reserved words
+  resources :articles_v2s, only: [:show, :index, :new, :create, :edit, :update]
 
 end
