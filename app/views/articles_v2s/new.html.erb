@@ -1,25 +1,5 @@
 <h1>Create a new article</h1>
 
-  <% if @article.errors.any? %>
-    <h2> Errors happened </h2>
-    <ul>
-      <% @article.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end%>
-    <ul>
-  <% end%>
+<%= render 'form'%>
 
- <%# for scope provide the model you are working with and its path %>
-<%= form_with scope: :articles_v2s, url: articles_v2s_path, local: true do |form| %>
-  <p> 
-    <%= form.label :title %><br/> 
-    <%= form.text_field :title %>
-  </p>
-  <p>
-    <%= form.label :description %><br/> 
-    <%= form.text_area :description %> 
-  </p>
-  <p>
-    <%= form.submit %> 
-  </p>
-<% end %>
+<%= link_to 'Return to articles listing', articles_v2s_path(@article)%>

@@ -1,11 +1,14 @@
 class ArticlesV2sController < ApplicationController
 
+  # this before action will be prefomerd nefore any aaction in this controller
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+
   # show because that what we put in our routes.rb
   def show
     # we have to instainitiate article because we need it to be accessible on our views 
     # params is something which goes into url after /; ex: articles/1 (id of article is 1 )
     # byebug is debugger; wrute your variable in terminal where your rails is runnning, ex: params[:id] will return you current called id
-    @article = ArticlesV2s.find(params[:id])
+    # @article = ArticlesV2s.find(params[:id])
   end
 
   # create an index.html.erb in your articles_v2s folder, in order to see data from function
@@ -19,7 +22,7 @@ class ArticlesV2sController < ApplicationController
 
   def edit
     # we need to instainitiate @article because we use it in our edit.html.erb params is reserved word and comes from url we reuqest
-    @article = ArticlesV2s.find(params[:id])
+    # @article = ArticlesV2s.find(params[:id])
   end
 
   # should be name of the table in params
@@ -28,7 +31,7 @@ class ArticlesV2sController < ApplicationController
     # render plain: params[:articles_v2s]
 
     # require means =< require top level key of created article and permit to save its data
-    @article = ArticlesV2s.new(params.require(:articles_v2s).permit(:title, :description))
+    @article = ArticlesV2s.new(artcle_params)
    
     # render plain: @article
     # to show more details
@@ -45,12 +48,27 @@ class ArticlesV2sController < ApplicationController
   end
   
   def update
-    @article = ArticlesV2s.find(params[:id])
-    if @article.update(params.require(:articles_v2s).permit(:title, :description))
+    # @article = ArticlesV2s.find(params[:id])
+    if @article.update(artcle_params)
       flash[:notice] = "Article was updated successfully"
       redirect_to @article
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    # @article = ArticlesV2s.find(params[:id])
+    @article.destroy
+    redirect_to articles_v2s_path
+  end
+
+  private 
+  def set_article
+    @article = ArticlesV2s.find(params[:id])
+  end
+
+  def artcle_params
+    params.require(:articles_v2s).permit(:title, :description)
   end
 end
