@@ -33,6 +33,7 @@ class ArticlesV2sController < ApplicationController
     # require means =< require top level key of created article and permit to save its data
     @article = ArticlesV2s.new(artcle_params)
    
+    @article.user = User.first
     # render plain: @article
     # to show more details
     # render plain: @article.inspect 
@@ -40,7 +41,7 @@ class ArticlesV2sController < ApplicationController
     # article.save will return true if it was sucessfully saved into DB
     if @article.save
       flash[:notice] = "Article was created sucessfully"
-    # after saving we want to show what was saved (we add _path to our model/table name) or just our created @article:
+        # after saving we want to show what was saved (we add _path to our model/table name) or just our created @article:
       redirect_to @article
     else
       render 'new'
