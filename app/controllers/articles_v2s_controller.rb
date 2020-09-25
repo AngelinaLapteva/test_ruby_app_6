@@ -33,6 +33,7 @@ class ArticlesV2sController < ApplicationController
     # require means =< require top level key of created article and permit to save its data
     @article = ArticlesV2s.new(artcle_params)
    
+    # assigned user on creation of article
     @article.user = User.first
     # render plain: @article
     # to show more details
