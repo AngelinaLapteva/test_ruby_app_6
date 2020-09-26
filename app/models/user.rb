@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # mthis method is doing something before saving data into table, self is referencing each object which comes to this class
+  before_save { self.email = email.downcase }
   # class name needed in order to access the table "articles_v2s" via its controller ArticlesV2s
   # so consol command would be user.articles_v2s
   validates :username, presence: true, 
@@ -11,4 +13,6 @@ class User < ApplicationRecord
                     length: { maximum: 105 },
                     format: { with: VALID_EMAIL_REGEX }
   has_many :articles_v2s, class_name: 'ArticlesV2s'
+  # adding passwords to uses, after that in terminal i can assigned user.password = "something" and it will hash and put it into "password_digest"
+  has_secure_password
 end
