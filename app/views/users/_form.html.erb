@@ -1,4 +1,8 @@
-<%= form_with(model: user, local: true) do |form| %>
+
+<%#  in shared.errors path is getting _errors.html.erb with a parameter for obj as @user %>
+<%= render 'shared/errors', obj: @user %>
+
+<%= form_with(model: @user, local: true) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -12,11 +16,23 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :username %>
+    <%= form.label :username, placeholder: "Enter username" %>
     <%= form.text_field :username %>
   </div>
 
+  <div class="field">
+    <%= form.label :email, placeholder: "Enter email" %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+  <%# we can still user password instead of password_digest column from the table 
+  because you use gem it it will put into password_digest already hashed verstion of password %>
+    <%= form.label :password, placeholder: "Choose password" %>
+    <%= form.password_field :password %>
+  </div>
+
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Sign up"%>
   </div>
 <% end %>

@@ -1,11 +1,5 @@
-  <% if @article.errors.any? %>
-    <h2> Errors happened </h2>
-    <ul>
-      <% @article.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end%>
-    <ul>
-  <% end%>
+
+<%= render 'shared/errors', obj: @article %>
 
  <%# for scope provide the model you are working with and its path %>
 <%= form_with scope: :articles_v2s, url: articles_v2s_path, local: true do |form| %>
