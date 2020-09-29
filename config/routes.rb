@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   # only: [:show] we describe only routes we need, because by default it will create things like post, delete and etc
   # to see all possible routes we have in the app "rails routes --expanded"
-  # show, index, new, create a reserved words
+  # show, index, new, create are reserved words
   resources :articles_v2s
-
+  
+  # to expose all the possible routes for uses we need to call resources
+  get 'signup', to: 'users#new'
+  #excepting method new because we already described it above
+  resources :users, except: [:new]
 end
