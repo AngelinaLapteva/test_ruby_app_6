@@ -13,7 +13,7 @@ class ArticlesV2sController < ApplicationController
 
   # create an index.html.erb in your articles_v2s folder, in order to see data from function
   def index
-    @articles = ArticlesV2s.all
+    @articles = ArticlesV2s.paginate(page: params[:page], per_page: 4)
   end
 
   def new

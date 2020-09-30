@@ -14,9 +14,13 @@
       <tr>
         <td><%= article.title %></td>
         <td><%= article.description %></td>
-        <td><%= article.user.username %></td>
+        <td>
+         <% if article.user %>
+            by <%= link_to article.user.username, user_path(article.user) %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', articles_v2_path(article) %></td>
-         <td><%= link_to 'Edit', edit_articles_v2_path(article) %></td>
+        <td><%= link_to 'Edit', edit_articles_v2_path(article) %></td>
         <%# to provide and id for each link we need to put its path as artcile_path (tablename_path) and specify method got request%>
         <%# please note that for the name ruby framework will remove last s as its not plural, so instead of articles_v2s_path put articles_v2_path %>
         <td><%= link_to 'Delete', articles_v2_path(article), method: :delete, data: { confirm: "Sre you sure"} %></td>
