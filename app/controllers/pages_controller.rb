@@ -1,7 +1,9 @@
 class PagesController < ApplicationController
-    def home
-    end
-    
-    def about
-    end
+
+  def home
+    redirect_to articles_v2s_path if logged_in?
+  end
+
+  def about
+  end
 end

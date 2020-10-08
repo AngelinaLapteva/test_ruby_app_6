@@ -3,6 +3,11 @@ class ArticlesV2sController < ApplicationController
   # this before action will be prefomerd nefore any aaction in this controller
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
+  #  require_user function is coming from application_controller, should happen when navigating to any url other than showin articles
+  before_action :require_user, except: [:show, :index]
+
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+
   # show because that what we put in our routes.rb
   def show
     # we have to instainitiate article because we need it to be accessible on our views 
@@ -33,8 +38,8 @@ class ArticlesV2sController < ApplicationController
     # require means =< require top level key of created article and permit to save its data
     @article = ArticlesV2s.new(artcle_params)
    
-    # assigned user on creation of article
-    @article.user = User.first
+    # assigned user on creation of article, current_user is available because it is in application_controller
+    @article.user = current_user
     # render plain: @article
     # to show more details
     # render plain: @article.inspect 
@@ -72,5 +77,12 @@ class ArticlesV2sController < ApplicationController
 
   def artcle_params
     params.require(:articles_v2s).permit(:title, :description)
+  end
+
+  def require_same_user
+    if current_user != @article.user
+      flash[:alert] = "You can only edit or delete your own article"
+      redirect_to @article
+    end
   end
 end
