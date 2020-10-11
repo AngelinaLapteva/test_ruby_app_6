@@ -12,7 +12,9 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }, 
                     length: { maximum: 105 },
                     format: { with: VALID_EMAIL_REGEX }
-  has_many :articles_v2s, class_name: 'ArticlesV2s'
+  
+  #  we need  dependent: destroy because if we delete user we want to delete all realted to this user articles 
+  has_many :articles_v2s, class_name: 'ArticlesV2s', dependent: :destroy
   # adding passwords to uses, after that in terminal i can assigned user.password = "something" and it will hash and put it into "password_digest"
   has_secure_password
 end

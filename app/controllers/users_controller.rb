@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  before_action :require_user, only: [:edit, :update]
+
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+
 
   # GET /users
   # GET /users.json
@@ -57,20 +62,27 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # after destroing since destroyed user was logged in , session will lose its id, si its needs to be nullified
+    session[:user_id] = nil
+    flash[:notice] = "Account and all associated articles successfully deleted"
+    redirect_to articles_v2s_path
+  end
+end
+
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:username, :email, :password)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:username, :email, :password)
+  def require_same_user
+    if current_user != @user
+      flash[:alert] = "You can only edit your own account"
+      redirect_to @user
     end
-end
+  end

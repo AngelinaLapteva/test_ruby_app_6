@@ -21,12 +21,12 @@
         </td>
         <td><%= link_to 'Show', articles_v2_path(article) %></td>
       
-        <%# to provide and id for each link we need to put its path as artcile_path (tablename_path) and specify method got request%>
+        <%# to provide an id for each link we need to put its path as artcile_path (tablename_path) and specify method got request%>
         <%# please note that for the name ruby framework will remove last s as its not plural, so instead of articles_v2s_path put articles_v2_path %>
         
         <% if logged_in? && article.user == current_user %>
           <td><%= link_to 'Edit', edit_articles_v2_path(article) %></td>
-          <td><%= link_to 'Delete', articles_v2_path(article), method: :delete, data: { confirm: "Sre you sure"} %></td>
+          <td><%= link_to 'Delete', articles_v2_path(article), method: :delete, data: { confirm: "Are you sure"} %></td>
         <% end %>
       </tr>
     <% end %>

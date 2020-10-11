@@ -4,7 +4,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # byebug
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       # rails provide session object which you can use to keep the session

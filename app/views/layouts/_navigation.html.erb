@@ -25,6 +25,8 @@
           <%= link_to 'View your profile', user_path(current_user), class: "nav-link" %>
         </li>
          <%= link_to "Edit your profile", edit_user_path(current_user), class: "nav-link" %>
+         <%= link_to "Delete profile", user_path(current_user), class: "nav-link", method: :delete, data: { confirm: "Are you sure?" } %> 
+
       <% else %>
         <li class="nav-item">
           <%= link_to 'Log in', login_path, class: "nav-link" %>
