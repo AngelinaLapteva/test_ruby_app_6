@@ -5,7 +5,7 @@
   by <%= @article.user.username if @article.user %>
   <%= link_to gravatar_for(@article.user), user_path(@article.user) %>
 </div>
-<% if logged_in? && @article.user == current_user %>
+<% if logged_in? && (@article.user == current_user || current_user.admin?) %>
   <%= link_to 'Edit', edit_articles_v2_path(@article)%>
   <%= link_to 'Delete', articles_v2_path(@article), method: :delete, data: { confirm: "Are you sure"}%>
 <% end %>

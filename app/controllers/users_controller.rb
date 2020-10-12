@@ -63,7 +63,9 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     # after destroing since destroyed user was logged in , session will lose its id, si its needs to be nullified
-    session[:user_id] = nil
+    # in order to avoid being logged out on deleting any other user you need to set up session user id to nill 
+    #  !! only in case if that passed @user is the one who is logged in
+    session[:user_id] = nil if @user == current_user
     flash[:notice] = "Account and all associated articles successfully deleted"
     redirect_to articles_v2s_path
   end
@@ -81,8 +83,8 @@ private
   end
 
   def require_same_user
-    if current_user != @user
-      flash[:alert] = "You can only edit your own account"
+    if current_user != @user && !currrent_user.admin?
+      flash[:alert] = "You can only edit or delete your own account"
       redirect_to @user
     end
   end
