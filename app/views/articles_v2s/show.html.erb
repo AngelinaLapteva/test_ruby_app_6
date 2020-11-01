@@ -5,6 +5,10 @@
   by <%= @article.user.username if @article.user %>
   <%= link_to gravatar_for(@article.user), user_path(@article.user) %>
 </div>
+<% if @article.categories.any? %>
+<%# in order for rendering work it will look inside vew folder of categories and search for category.html file %>
+  <div class="mt-2"><%= render @article.categories %></div> 
+<% end %>
 <% if logged_in? && (@article.user == current_user || current_user.admin?) %>
   <%= link_to 'Edit', edit_articles_v2_path(@article)%>
   <%= link_to 'Delete', articles_v2_path(@article), method: :delete, data: { confirm: "Are you sure"}%>

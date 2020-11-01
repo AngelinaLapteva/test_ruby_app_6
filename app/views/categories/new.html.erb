@@ -1,20 +1,24 @@
 <h1>Create new category</h1>
 
 
-<%#  in shared.errors path is getting _errors.html.erb with a parameter for obj as @user %>
-<%= render 'shared/errors', obj: @category %>
+<%#  in shared.errors path is getting _errors.html.erb with a parameter for obj as @category %>
+<%# <%= render 'shared/errors', obj: @category %> 
 
-<%= form_with(model: @category, local: true) do |form| %>
+<%# <%= form_with(model: @category, local: true) do |form| %> 
 
-  <div class="field">
+  <%# <div class="field">
     <%= form.label :name, "Category name", placeholder: "Enter category name" %>
-    <%= form.text_field :name %>
-  </div>
+    <%# <%= form.text_field :name %> 
+  <%# </div> %> 
 
 
-  <div class="actions">
+  <%# <div class="actions">
     <%= form.submit %>
-  </div>
-<% end %>
+  <%# </div>  %>
 
+    <%= render 'form' %>
+<%# <% end %> %>
 
+    <div class="mb-3">
+      <%= link_to '[ Cancel and return to categories listing ]', categories_path, class: "text-info" %>
+    </div>
